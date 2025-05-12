@@ -47,7 +47,7 @@ void APlayerChar::SetupPlayerInputComponent(UInputComponent* PlayerInputComponen
 	//Calls moveright function when D is pressed, reverse axis when A is pressed
 	PlayerInputComponent->BindAxis("MoveRight", this, &APlayerChar::MoveRight);
 
-	//Moves camera up and down with mouse
+	//Moves camera up and down with mouse 
 	PlayerInputComponent->BindAxis("LookUP", this, &APlayerChar::AddControllerPitchInput);
 
 	//turns camera left and right with mouse
