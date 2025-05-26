@@ -7,6 +7,7 @@
 #include "Camera/CameraComponent.h"
 #include "Resource_M.h"
 #include "Kismet/GameplayStatics.h"
+#include "BuildingPart.h"
 #include "PlayerChar.generated.h"
 
 
@@ -93,6 +94,22 @@ public:
 	UPROPERTY(EditAnywhere, Category = "HitMarker")
 	UMaterialInterface* hitDecal;
 
+	//store building info
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Building Supplies")
+	TArray<int> BuildingArray;
+
+	//is player crafting
+	UPROPERTY()
+	bool isBuilding;
+
+	//select children of building placement
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite)
+	TSubclassOf<ABuildingPart> BuildPartClass;
+
+	//spawned object
+	UPROPERTY()
+	ABuildingPart* spawnedPart;
+
 	//initialize function to change health
 	UFUNCTION(BlueprintCallable)
 	void SetHealth(float amount);
@@ -109,6 +126,20 @@ public:
 	UFUNCTION()
 	void DecreaseStats();
 
+	//give materials
 	UFUNCTION()
 	void GiveResource(float amount, FString resourceType);
+
+	//determine which object is being built
+	UFUNCTION(BlueprintCallable)
+	void UpdateResources(float woodAmount, float stoneAmount, FString buildingObject);
+
+	//spawns building mat
+	UFUNCTION(BlueprintCallable)
+	void SpawnBuilding(int buildingID, bool& isSuccess);
+
+	//rotates build
+	UFUNCTION()
+	void RotateBuilding();
+
 };
