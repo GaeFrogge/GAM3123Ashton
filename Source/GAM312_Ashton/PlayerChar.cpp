@@ -41,6 +41,14 @@ void APlayerChar::BeginPlay()
 	FTimerHandle StatsTimerHandle;
 	GetWorld()->GetTimerManager().SetTimer(StatsTimerHandle, this, &APlayerChar::DecreaseStats, 2.0f, true);
 	
+	//set initial values for objectives to 0
+	if (objWidget)
+	{
+		objWidget->UpdatebuildOBJ(0.0f);
+		objWidget->UpdatematOBJ(0.0f);
+	}
+
+
 }
 
 // Called every frame
@@ -175,6 +183,11 @@ void APlayerChar::FindObject()
 					{
 						GiveResource(resourceValue, hitName);
 
+						//adds mats to objective
+						matsCollected = matsCollected + resourceValue;
+
+						objWidget->UpdatematOBJ(matsCollected);
+
 						//debug prints if resource collected
 						check(GEngine != nullptr);
 						GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Red, TEXT("Resource Collected"));
@@ -202,6 +215,11 @@ void APlayerChar::FindObject()
 	else
 	{
 		isBuilding = false;
+
+		//updates objects built
+		objectsBuilt = objectsBuilt + 1.0f;
+
+		objWidget->UpdatebuildOBJ(objectsBuilt);
 	}
 
 

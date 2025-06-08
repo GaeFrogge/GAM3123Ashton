@@ -9,6 +9,7 @@
 #include "Kismet/GameplayStatics.h"
 #include "BuildingPart.h"
 #include "PlayerWidget.h"
+#include "ObjectiveWidget.h"
 #include "PlayerChar.generated.h"
 
 
@@ -111,8 +112,21 @@ public:
 	UPROPERTY()
 	ABuildingPart* spawnedPart;
 
+	//variable playerui
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	UPlayerWidget* playerUI;
+
+	//Variable obj widget
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	UObjectiveWidget* objWidget;
+
+	//Variable objects built
+	UPROPERTY()
+	float objectsBuilt;
+
+	//variable materials collected
+	UPROPERTY()
+	float matsCollected;
 
 	//initialize function to change health
 	UFUNCTION(BlueprintCallable)
