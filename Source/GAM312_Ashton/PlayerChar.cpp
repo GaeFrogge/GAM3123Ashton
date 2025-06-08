@@ -48,6 +48,8 @@ void APlayerChar::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
+	playerUI->UpdateBars(Health, Hunger, Stamina);
+
 	//if isbuilding is true
 	if (isBuilding)
 	{
