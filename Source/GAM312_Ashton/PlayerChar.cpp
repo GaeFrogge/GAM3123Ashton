@@ -106,10 +106,21 @@ void APlayerChar::SetupPlayerInputComponent(UInputComponent* PlayerInputComponen
 
 }
 //Called when player presses W/A
-void APlayerChar::MoveForward(float axisValue)
+void APlayerChar::MoveForward(float AxisValue)
 {
-	FVector Direction = FRotationMatrix(Controller->GetControlRotation()).GetScaledAxis(EAxis::X);
-	AddMovementInput(Direction, axisValue);
+	if (Controller && AxisValue != 0.0f)
+	{
+		// Get controller rotation
+		FRotator ControlRot = Controller->GetControlRotation();
+
+		// Zero out pitch and roll so we only move based on yaw
+		FRotator YawRot(0.0f, ControlRot.Yaw, 0.0f);
+
+		// Get forward vector from yaw-only rotation
+		FVector Direction = FRotationMatrix(YawRot).GetUnitAxis(EAxis::X);
+
+		AddMovementInput(Direction, AxisValue);
+	}
 }
 
 //Called when player presses A/D
